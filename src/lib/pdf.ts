@@ -129,7 +129,7 @@ function buildFilterSubtitle(
 
 async function fetchImageBytes(url: string): Promise<Uint8Array | null> {
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 12000);
+  const timer = setTimeout(() => controller.abort(), 8000);
   try {
     const res = await fetch(url, {
       signal: controller.signal,
@@ -147,7 +147,7 @@ async function fetchImageBytes(url: string): Promise<Uint8Array | null> {
 
 async function fetchImagesInBatches(
   items: CatalogProductItem[],
-  concurrency = 8
+  concurrency = 12
 ): Promise<Map<string, Uint8Array | null>> {
   const results = new Map<string, Uint8Array | null>();
   let index = 0;
