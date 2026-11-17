@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Check,
+  ChevronDown,
   ChevronLeft,
   ChevronRight,
   Download,
@@ -167,6 +168,8 @@ export function CatalogWorkspace({ initialFilters }: CatalogWorkspaceProps) {
   const [fetchError, setFetchError] = useState<string | null>(null);
 
   const [onlyWithPhotos, setOnlyWithPhotos] = useState<boolean>(true);
+  const [collectionsExpanded, setCollectionsExpanded] =
+    useState<boolean>(false);
   const [includedNoPhotoIds, setIncludedNoPhotoIds] = useState<Set<string>>(
     () => new Set()
   );
@@ -584,14 +587,37 @@ export function CatalogWorkspace({ initialFilters }: CatalogWorkspaceProps) {
         </div>
 
         {/* Collections multi-select & photo toggle */}
-        <div className="mt-4 border-t border-[#efe9dc] pt-4">
-          <div className="mb-2.5 flex flex-wrap items-center justify-between gap-3">
-            <span className="text-xs font-semibold tracking-wider text-[#6e685f] uppercase">
-              Collections{" "}
-              {selectedCollections.length > 0
-                ? `(${selectedCollections.length} selected)`
-                : "(All)"}
-            </span>
+        <div className="mt-4 border-t border-[#efe9dc] pt-3.5">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <button
+              type="button"
+              onClick={() => setCollectionsExpanded((prev) => !prev)}
+              className="group -ml-1.5 inline-flex items-center gap-2 rounded-lg px-2 py-1 text-xs font-semibold tracking-wider text-[#6e685f] uppercase transition hover:bg-[#faf5ea] hover:text-[#8e6327]"
+              aria-expanded={collectionsExpanded}
+              title={
+                collectionsExpanded
+                  ? "Click to collapse collections"
+                  : "Click to expand collections"
+              }
+            >
+              <span>Collections</span>
+              {selectedCollections.length > 0 ? (
+                <span className="rounded-full bg-[#8e6327] px-2 py-0.5 text-[11px] font-semibold text-white normal-case">
+                  {selectedCollections.length} selected
+                </span>
+              ) : (
+                <span className="font-normal normal-case text-[#8a8378]">
+                  ({availableCollections.length})
+                </span>
+              )}
+              <ChevronDown
+                className={`h-4 w-4 transition-transform duration-200 ${
+                  collectionsExpanded
+                    ? "rotate-180 text-[#8e6327]"
+                    : "text-[#8a8378] group-hover:text-[#8e6327]"
+                }`}
+              />
+            </button>
 
             <div className="flex flex-wrap items-center gap-3">
               <label
@@ -621,30 +647,32 @@ export function CatalogWorkspace({ initialFilters }: CatalogWorkspaceProps) {
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-1.5">
-            {availableCollections.map((coll) => {
-              const active = selectedCollections.includes(coll.value);
-              return (
-                <button
-                  key={coll.value}
-                  type="button"
-                  onClick={() => handleCollectionToggle(coll.value)}
-                  className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium transition ${
-                    active
-                      ? "border-[#8e6327] bg-[#8e6327] text-white"
-                      : "border-[#dfd7c8] bg-[#faf8f3] text-[#4a453e] hover:border-[#8e6327]"
-                  }`}
-                >
-                  <span>{coll.label}</span>
-                  <span
-                    className={active ? "text-[#f5e7ce]" : "text-[#8a8378]"}
+          {collectionsExpanded ? (
+            <div className="mt-3 flex flex-wrap gap-1.5">
+              {availableCollections.map((coll) => {
+                const active = selectedCollections.includes(coll.value);
+                return (
+                  <button
+                    key={coll.value}
+                    type="button"
+                    onClick={() => handleCollectionToggle(coll.value)}
+                    className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium transition ${
+                      active
+                        ? "border-[#8e6327] bg-[#8e6327] text-white"
+                        : "border-[#dfd7c8] bg-[#faf8f3] text-[#4a453e] hover:border-[#8e6327]"
+                    }`}
                   >
-                    {coll.count.toLocaleString()}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
+                    <span>{coll.label}</span>
+                    <span
+                      className={active ? "text-[#f5e7ce]" : "text-[#8a8378]"}
+                    >
+                      {coll.count.toLocaleString()}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          ) : null}
         </div>
       </section>
 
