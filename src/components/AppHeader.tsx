@@ -41,7 +41,7 @@ export function AppHeader({
             <BookOpen className="h-4 w-4" />
             Catalog ({totalCatalogue.toLocaleString()})
           </Link>
-          <Link
+          {/* <Link
             href="/missing-photos"
             className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-2 font-medium transition ${
               activeRoute === "missing-photos"
@@ -51,7 +51,7 @@ export function AppHeader({
           >
             <AlertCircle className="h-4 w-4 text-[#8e6327]" />
             Missing Photos ({missingPhotoCount.toLocaleString()})
-          </Link>
+          </Link> */}
         </nav>
       </div>
     </header>
