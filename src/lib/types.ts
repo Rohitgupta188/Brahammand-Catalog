@@ -1,4 +1,4 @@
-export const MAX_PDF_PRODUCTS = 2000;
+export const MAX_PDF_PRODUCTS = 1000;
 export const DEFAULT_PAGE_SIZE = 60;
 export const OTHER_COLLECTION_VALUE = "__OTHER__";
 
