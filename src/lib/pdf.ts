@@ -147,7 +147,7 @@ async function fetchImageBytes(url: string): Promise<Uint8Array | null> {
 
 async function fetchImagesInBatches(
   items: CatalogProductItem[],
-  concurrency = 12
+  concurrency = 16
 ): Promise<Map<string, Uint8Array | null>> {
   const results = new Map<string, Uint8Array | null>();
   let index = 0;
