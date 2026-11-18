@@ -173,7 +173,7 @@ export function CatalogWorkspace({ initialFilters }: CatalogWorkspaceProps) {
   const [includedNoPhotoIds, setIncludedNoPhotoIds] = useState<Set<string>>(
     () => new Set()
   );
-  const [selectionMode, setSelectionMode] = useState<"all" | "custom">("all");
+  const [selectionMode, setSelectionMode] = useState<"all" | "custom">("custom");
   const [excludedIds, setExcludedIds] = useState<Set<string>>(() => new Set());
   const [selectedIds, setSelectedIds] = useState<Set<string>>(() => new Set());
 
