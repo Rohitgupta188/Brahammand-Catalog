@@ -17,8 +17,8 @@ import {
   formatCollection,
   parseWeightValue,
   formatWeight,
-  buildImageKitUrl,
 } from "@/lib/formatters";
+import { ikUrl } from "@/lib/ikUrl";
 
 export {
   MAX_PDF_PRODUCTS,
@@ -34,7 +34,6 @@ export {
   formatCollection,
   parseWeightValue,
   formatWeight,
-  buildImageKitUrl,
 };
 
 export const BASE_CATALOGUE_FILTER: Filter<CatalogDocument> = {
@@ -62,8 +61,8 @@ export function serializeCatalogDoc(doc: CatalogDocument): CatalogProductItem {
     purityLabel: formatPurity(doc.metalPurity),
     imageName: doc.imageName ?? null,
     imageUrl,
-    thumbUrl: buildImageKitUrl(imageUrl, "w-400"),
-    printUrl: buildImageKitUrl(imageUrl, "w-800,q-80,f-jpg"),
+    thumbUrl: ikUrl(imageUrl),
+    printUrl: ikUrl(imageUrl),
   };
 }
 
