@@ -35,18 +35,4 @@ export function formatWeight(val: number): string {
   return `${formatted3} g`;
 }
 
-export function buildImageKitUrl(
-  imageUrl: string | null | undefined,
-  transform: string
-): string | null {
-  const trimmed = (imageUrl ?? "").trim();
-  if (!trimmed) return null;
-  try {
-    const url = new URL(trimmed);
-    url.searchParams.set("tr", transform);
-    return url.toString();
-  } catch {
-    return trimmed;
-  }
-}
 
